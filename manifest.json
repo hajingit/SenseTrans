@@ -1,0 +1,27 @@
+{
+    "name":"How do you feel?",
+    "version":"0.1",
+    "manifest_version":2,
+    "description":"See how your friends feel",
+    "background":{
+        "scripts":[
+            
+                "main.js",
+                "jquery-3.1.1.min.js"
+            ],
+        "persistent": false
+    },
+    "content_scripts": [
+      {
+        "matches": ["https://*/*", "http://*/*"],
+        "js": ["jquery-3.1.1.min.js", "content.js"],
+        "run_at": "document_end"
+      }
+    ],
+    "permissions":[
+        "contextMenus", 
+        "tabs",
+        "http://*/*",
+        "https://*/*"
+        ]
+}
