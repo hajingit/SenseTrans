@@ -19,11 +19,27 @@ $(document).ready(function(){
     $("#translation-box").css("left", (position.left + width) + "px");
     $("#translation-box").css("top", position.top + "px");
     $("#translation-box").css("height", $(this).height() + "px");
-    $("#translation-box").css("z-index:10000000");
+    $("#translation-box").css("z-index", 10000000);
 
     var content = $(this).find("p").first().html();
     $.get(url + content, function(data) {
       $("#translation-box").html(data.data.translations[0].translatedText);
+    });
+
+    var words = $(this).html();
+    //console.log(words);
+    var watsonUrl = "https://access.alchemyapi.com/calls/html/HTMLGetCombinedData";
+    var alchemyApiKey = "07cb048088ebb9dc710d357c380108f66e3fa29a";
+    $.post(watsonUrl, {html: words, apikey: alchemyApiKey, outputMode: "json", extract: "doc-emotion"},function(data){
+      //console.log(data);
+      var count = Object.keys(data).length;
+      var emotions = ["anger", "disgust", "fear", "joy", "sadness"];
+      for (var i=0; i<count; i++){
+          var emotion = emotions[i];
+            //console.log(emotion + ": " + data["docEmotions"][emotion]);
+          var analysis = emotion + ": " + data["docEmotions"][emotion];
+          $("#translation-box").append(analysis);
+    }
     });
   });
 });
