@@ -5,7 +5,6 @@ html, body {
 body {
   background-position: center center;
   background-repeat: no-repeat;
-  background-image: url("../hello_world.png"), -webkit-radial-gradient(center, ellipse cover,#FFFFFF 0%,#FAFAFA 50%,#F5F5F5 60%,#BEBEBE 100%);
   margin: 0;
   padding: 0;
 }

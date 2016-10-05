@@ -5,8 +5,6 @@
     "description":"See how your friends feel",
     "background":{
         "scripts":[
-            
-                "main.js",
                 "jquery-3.1.1.min.js"
             ],
         "persistent": false
