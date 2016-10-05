@@ -6,8 +6,8 @@ var url = "https://www.googleapis.com/language/translate/v2?key=AIzaSyD4rLhLb3Zm
 
 $(document).ready(function(){
   $(document).on("mouseover", ".userContent", function(){
-    $("body").append("<div id='hover-box' style='background-color: yellow; position:absolute; width:100px; height:100px'></div>");
-    $("body").append("<div id='translation-box' style='background-color: lightblue; position:absolute; width:200px; height:100px'></div>");
+    $("body").append("<div id='hover-box' style='background-color: yellow; position:absolute; width:auto; height:auto;'></div>");
+    $("body").append("<div id='translation-box' style='background-color: lightblue; position:absolute; width:auto; height:auto;'></div>");
     var position = $(this).offset();
     var width = $(this).width();
 
