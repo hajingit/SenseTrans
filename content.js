@@ -6,7 +6,7 @@ var url = "https://www.googleapis.com/language/translate/v2?key=AIzaSyD4rLhLb3Zm
 
 $(document).ready(function(){
   $(document).on("mouseover", ".userContent", function(){
-    $("body").append("<div id='hover-box' style='background-color: yellow; position:absolute; width:auto; height:auto;'></div>");
+    $("body").append("<div id='hover-box' style='background-color: blue; opacity: 0.2; position:absolute; width:auto; height:auto;'></div>");
     $("body").append("<div id='translation-box' style='background-color: lightblue; position:absolute; width:auto; height:auto;'></div>");
     var position = $(this).offset();
     var width = $(this).width();
@@ -18,12 +18,13 @@ $(document).ready(function(){
 
     $("#translation-box").css("left", (position.left + width) + "px");
     $("#translation-box").css("top", position.top + "px");
-    $("#translation-box").css("height", $(this).height() + "px");
+    //$("#translation-box").css("height", $(this).height() + "px");
     $("#translation-box").css("z-index", 10000000);
+    $("#translation-box").css("padding", "20px");
 
     var content = $(this).find("p").first().html();
     $.get(url + content, function(data) {
-      $("#translation-box").html(data.data.translations[0].translatedText);
+      $("#translation-box").html("<h2> Translation: </h2>" + data.data.translations[0].translatedText);
     });
 
     var words = $(this).html();
@@ -34,11 +35,12 @@ $(document).ready(function(){
       //console.log(data);
       var count = Object.keys(data).length;
       var emotions = ["anger", "disgust", "fear", "joy", "sadness"];
+      $("#translation-box").append("<h2> Emotion Analysis: </h2>");
       for (var i=0; i<count; i++){
           var emotion = emotions[i];
             //console.log(emotion + ": " + data["docEmotions"][emotion]);
           var analysis = emotion + ": " + data["docEmotions"][emotion];
-          $("#translation-box").append(analysis);
+          $("#translation-box").append(analysis + "<br>");
     }
     });
   });
