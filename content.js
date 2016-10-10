@@ -39,8 +39,16 @@ $(document).ready(function(){
       for (var i=0; i<count; i++){
           var emotion = emotions[i];
             //console.log(emotion + ": " + data["docEmotions"][emotion]);
-          var analysis = emotion + ": " + data["docEmotions"][emotion];
-          $("#translation-box").append(analysis + "<br>");
+          if (emotion != "fear"){
+            var imageUrl = chrome.extension.getURL('/img/' + emotion + '.png');
+            var emotionImage = document.createElement('img');
+            emotionImage.src = imageUrl;
+            $(emotionImage).css("height", "50px");
+            $("#translation-box").append(emotionImage);
+            //$("#translation-box").append(data["docEmotions"][emotion]);
+            var analysis = emotion + ": " + data["docEmotions"][emotion];
+            $("#translation-box").append(analysis + "<br>");
+          }
     }
     });
   });
