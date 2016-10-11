@@ -2,7 +2,7 @@ document.documentElement.style.height = '100%';
 document.body.style.height = '100%';
 document.documentElement.style.width = '100%';
 document.body.style.width = '100%';
-var url = "https://www.googleapis.com/language/translate/v2?key=AIzaSyD4rLhLb3ZmwjLJDt-njNqFYP30eHeaBTQ&target=en&q=";
+var translateUrl = "https://www.googleapis.com/language/translate/v2?key=AIzaSyD4rLhLb3ZmwjLJDt-njNqFYP30eHeaBTQ&target=en&q=";
 
 $(document).ready(function(){
   $(document).on("mouseover", ".userContent", function(){
@@ -23,7 +23,7 @@ $(document).ready(function(){
     $("#translation-box").css("padding", "20px");
 
     var content = $(this).find("p").first().html();
-    $.get(url + content, function(data) {
+    $.get(translateUrl + content, function(data) {
       $("#translation-box").html("<h2> Translation: </h2>" + data.data.translations[0].translatedText);
     });
 
