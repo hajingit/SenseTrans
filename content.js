@@ -46,10 +46,13 @@ $('.userContent').each(function() {
   $(".btn-class").css("left", left + "px");
   $(".btn-class").css("top", userContentPosition.top + "px");
   $(".btn-class").css("z-index", 10000000000);
-  $(".btn-class").css("background-color", "red");
+  $(".btn-class").css("background-color", "#169BD4");
   $(".btn-class").css("position", "absolute");
   $(".btn-class").css("border", "none");
   $(".btn-class").css("padding", "10px");
+  $(".btn-class").css("color", "white");
+  $(".btn-class").css("font-weight", "bold");
+
 
   //$(this).append(btn);
 });
