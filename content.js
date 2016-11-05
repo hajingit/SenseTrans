@@ -11,13 +11,29 @@ $(document).ready(function(){
     var position = $(this).offset();
     var width = $(this).width();
     var content = $(this).find("p").first().html();
+    var height = $(this).height();
 
-    $("body").append("<div id='hover-box' style='background-color: blue; opacity: 0.2; position:absolute; width:auto; height:auto;'></div>");
+    function addHoverBox(){
+      $("body").append("<div id='hover-box' style='background-color: blue; opacity: 0.2; position:absolute; width:auto; height:auto;'></div>");
 
-    $("#hover-box").css("left", position.left + "px");
-    $("#hover-box").css("top", position.top + "px");
-    $("#hover-box").css("width", width + "px");
-    $("#hover-box").css("height", $(this).height() + "px");
+      $("#hover-box").css("left", position.left + "px");
+      $("#hover-box").css("top", position.top + "px");
+      $("#hover-box").css("width", width + "px");
+      $("#hover-box").css("height", height + "px");
+    }
+
+    function createButton(){
+      $("body").append("<button class='btn-class' style='position:absolute;'>Check</button>");
+      $(".btn-class").css("left", (position.left + width) + "px");
+      $(".btn-class").css("top", position.top + "px");
+      $(".btn-class").css("z-index", 100000);
+      $(".btn-class").css("background-color", "red");
+      $(".btn-class").css("position", "absolute");
+      $(".btn-class").css("border", "none");
+      $(".btn-class").css("padding", "10px");
+    }
+
+
 
    function detectLanguage(foreignText) {
       $.post(watsonUrl, {html: foreignText, apikey: alchemyApiKey, outputMode: "json"}, function (data) {
@@ -25,8 +41,10 @@ $(document).ready(function(){
         var language = data["language"];
         if (language != "english" && language!=null) {
           console.log("not english");
-          addTranslationBox();
-          translateText();
+          addHoverBox();
+          createButton();
+          clickButton();
+          //translateText();
         }
         else{
           console.log("english");
@@ -35,13 +53,20 @@ $(document).ready(function(){
     }
 
     detectLanguage(content);
-    
+
+    function clickButton(){
+      $(".btn-class").click(function(){
+        console.log('clicked');
+        addTranslationBox();
+        translateText();
+      });
+    }
     function addTranslationBox(){
       $("body").append("<div id='translation-box' style='background-color: lightblue; position:absolute; width:auto; height:auto;'></div>");
       $("#translation-box").css("left", (position.left + width) + "px");
       $("#translation-box").css("top", position.top + "px");
       //$("#translation-box").css("height", $(this).height() + "px");
-      $("#translation-box").css("z-index", 10000000);
+      $("#translation-box").css("z-index", 1000);
       $("#translation-box").css("padding", "20px");
     }
 
@@ -60,7 +85,7 @@ $(document).ready(function(){
         outputMode: "json",
         extract: "doc-emotion"
       }, function (data) {
-        //console.log(data);
+        console.log(data);
         var count = Object.keys(data).length;
         var emotions = ["anger", "disgust", "fear", "joy", "sadness"];
         $("#translation-box").append("<h2> Emotion Analysis: </h2>");
