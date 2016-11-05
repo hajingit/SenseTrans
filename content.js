@@ -25,7 +25,7 @@ $(document).ready(function(){
     $("#translation-box").css("padding", "20px");
 
     var content = $(this).find("p").first().html();
-    $.get(url + content, function(data) {
+    $.get(translateUrl + content, function(data) {
       $("#translation-box").html("<h2> Translation: </h2>" + data.data.translations[0].translatedText);
     });
 
