@@ -4,25 +4,22 @@ document.documentElement.style.width = '100%';
 document.body.style.width = '100%';
 var translateUrl = "https://www.googleapis.com/language/translate/v2?key=AIzaSyD4rLhLb3ZmwjLJDt-njNqFYP30eHeaBTQ&target=en&q=";
 var watsonUrl = "https://access.alchemyapi.com/calls/html/HTMLGetCombinedData";
-var alchemyApiKey = "07cb048088ebb9dc710d357c380108f66e3fa29a";
+var alchemyApiKey = "2559328133acc4a3e8825bc7afe60edcd1d0beeb";
 
 $(document).ready(function(){
   $(document).on("mouseover", ".userContent", function() {
     var position = $(this).offset();
     var width = $(this).width();
+    var content = $(this).find("p").first().html();
 
-    //function addHoverBox(){
-      $("body").append("<div id='hover-box' style='background-color: blue; opacity: 0.2; position:absolute; width:auto; height:auto;'></div>");
+    $("body").append("<div id='hover-box' style='background-color: blue; opacity: 0.2; position:absolute; width:auto; height:auto;'></div>");
 
-      $("#hover-box").css("left", position.left + "px");
-      $("#hover-box").css("top", position.top + "px");
-      $("#hover-box").css("width", width + "px");
-      $("#hover-box").css("height", $(this).height() + "px");
-    //}
-    //addHoverBox();
+    $("#hover-box").css("left", position.left + "px");
+    $("#hover-box").css("top", position.top + "px");
+    $("#hover-box").css("width", width + "px");
+    $("#hover-box").css("height", $(this).height() + "px");
 
-
-    function detectLanguage(foreignText) {
+   function detectLanguage(foreignText) {
       $.post(watsonUrl, {html: foreignText, apikey: alchemyApiKey, outputMode: "json"}, function (data) {
         console.log(data);
         var language = data["language"];
@@ -37,7 +34,8 @@ $(document).ready(function(){
       });
     }
 
-    detectLanguage();
+    detectLanguage(content);
+    
     function addTranslationBox(){
       $("body").append("<div id='translation-box' style='background-color: lightblue; position:absolute; width:auto; height:auto;'></div>");
       $("#translation-box").css("left", (position.left + width) + "px");
@@ -46,7 +44,6 @@ $(document).ready(function(){
       $("#translation-box").css("z-index", 10000000);
       $("#translation-box").css("padding", "20px");
     }
-    var content = $(this).find("p").first().html();
 
     function translateText() {
       $.get(translateUrl + content, function (data) {
