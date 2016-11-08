@@ -90,15 +90,19 @@ $(document).ready(function(){
         console.log(data);
         var count = Object.keys(data).length;
         var emotions = ["anger", "disgust", "fear", "joy", "sadness"];
+        var barColors = ["blue","green","placeholder","darkviolet","red"];
+        var lefts = ["50","100","placeholder","150","200"];
         var list = [0,1,2,3];
         var barWidth = $("#translation-box").width();
         $("#translation-box").append("<h2> Emotion Analysis: </h2>");
         for (var i = 0; i < count; i++) {
           var emotion = emotions[i];
+          var barColor = barColors[i];
+          var leftPos = lefts[i];
           if (emotion != "fear") {
             var emotionPercentage = data["docEmotions"][emotion];
             var roundedEmotionPercentage = Math.round(emotionPercentage*100);
-            $("#translation-box").append("<div class='rect'style='height:" + (barWidth*emotionPercentage) + "px;z-index: 10000000000;padding:5px; border:1px solid#000; background-color: blue;color:white;margin:10px;display:inline-block;'>" + roundedEmotionPercentage +" %</div>");
+            $("#translation-box").append("<div class='rect'style='position:absolute;bottom:90px;left:" + leftPos +"px; height:" + (barWidth*emotionPercentage) + "px;z-index: 10000000000;padding:5px; border:1px solid#000; background-color:" + barColor + ";color:white;margin:10px;display:inline-block;'>" + roundedEmotionPercentage +" %</div>");
             //drawBars(emotionPercentage);
           }
         }
