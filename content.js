@@ -94,7 +94,7 @@ $(document).ready(function(){
         var lefts = ["50","100","placeholder","150","200"];
         var list = [0,1,2,3];
         var barWidth = $("#translation-box").width();
-        $("#translation-box").append("<h2> Emotion Analysis: </h2>");
+        $("#translation-box").append("<h2 style='padding-bottom:" + barWidth +"px'> Emotion Analysis: </h2>");
         for (var i = 0; i < count; i++) {
           var emotion = emotions[i];
           var barColor = barColors[i];
