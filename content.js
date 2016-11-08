@@ -45,7 +45,7 @@ $(document).ready(function(){
           addHoverBox();
           createButton();
           clickButton();
-          //translateText();
+
         }
         else{
           console.log("english");
