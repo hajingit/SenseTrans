@@ -74,7 +74,7 @@ $(document).ready(function(){
     function translateText() {
       $.get(translateUrl + content, function (data) {
         var translatedText = data.data.translations[0].translatedText;
-        $("#translation-box").html("<h2> Translation: </h2>" + translatedText);
+        $("#translation-box").html("<br> <br> <h2> Translation: </h2>" + translatedText + "<br> <br>");
         runEmotionAnalysis(translatedText);
       });
 
@@ -97,16 +97,23 @@ $(document).ready(function(){
           var emotion = emotions[i];
           if (emotion != "fear") {
             var emotionPercentage = data["docEmotions"][emotion];
-
-            $("#translation-box").append("<div class='rect'style='height:" + (barWidth*emotionPercentage) + "px;z-index: 10000000000; border:1px solid#000; background-color: blue;color:white;margin:10px;display:inline-block;'>" + emotionPercentage +"</div>");
-
+            var roundedEmotionPercentage = Math.round(emotionPercentage*100);
+            $("#translation-box").append("<div class='rect'style='height:" + (barWidth*emotionPercentage) + "px;z-index: 10000000000;padding:5px; border:1px solid#000; background-color: blue;color:white;margin:10px;display:inline-block;'>" + roundedEmotionPercentage +" %</div>");
+            //drawBars(emotionPercentage);
+          }
+        }
+        $("#translation-box").append("<br>");
+        for (var i = 0; i < count; i++) {
+          var emotion = emotions[i];
+          if (emotion != "fear") {
             var imageUrl = chrome.extension.getURL('/img/' + emotion + '.png');
             var emotionImage = document.createElement('img');
             emotionImage.src = imageUrl;
             //emotionImage.id = "image" + list[0];
             $(emotionImage).css("height", "50px");
             $(emotionImage).css("display", "inline");
-            //$("#translation-box").append(emotionImage);
+            $(emotionImage).css("margin", "5px");
+            $("#translation-box").append(emotionImage);
             var analysis = emotion + ": " + data["docEmotions"][emotion];
             console.log(barWidth*emotionPercentage);
             //$("#translation-box").append("<br>");
@@ -121,6 +128,12 @@ $(document).ready(function(){
       });
     }
 
+    function drawBars(emotionPercent){
+      var barWidth = $("#translation-box").width();
+
+      $("#translation-box").append("<div class='rect'style='height:" + (barWidth*emotionPercent) + "px;z-index: 10000000000; border:1px solid#000; background-color: blue;color:white;margin:10px;display:inline-block;'>" + emotionPercentage +"</div>");
+
+    }
     function drawRect(percentage){
       //$("#translation-box").append("<div class='rect' style='position:absolute; width:100px;z-index: 1000000000000; border:1px solid#000; background-color: blue;color:white;'>Hi</div>");
       //document.getElementById('rect').innerHTML = data["docEmotions"][emotion];
