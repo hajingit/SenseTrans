@@ -67,7 +67,6 @@ $(document).ready(function(){
       $("body").append("<div id='translation-box' style='background-color: lightblue; position:absolute; width:auto; height:auto;'></div>");
       $("#translation-box").css("left", (position.left + width) + "px");
       $("#translation-box").css("top", position.top + "px");
-      //$("#translation-box").css("height", $(this).height() + "px");
       $("#translation-box").css("z-index", 1000);
       $("#translation-box").css("padding", "20px");
     }
@@ -92,21 +91,25 @@ $(document).ready(function(){
         var count = Object.keys(data).length;
         var emotions = ["anger", "disgust", "fear", "joy", "sadness"];
         var list = [0,1,2,3];
+        var barWidth = $("#translation-box").width();
         $("#translation-box").append("<h2> Emotion Analysis: </h2>");
         for (var i = 0; i < count; i++) {
           var emotion = emotions[i];
           if (emotion != "fear") {
+            var emotionPercentage = data["docEmotions"][emotion];
+
+            $("#translation-box").append("<div class='rect'style='height:" + (barWidth*emotionPercentage) + "px;z-index: 10000000000; border:1px solid#000; background-color: blue;color:white;margin:10px;display:inline-block;'>" + emotionPercentage +"</div>");
+
             var imageUrl = chrome.extension.getURL('/img/' + emotion + '.png');
             var emotionImage = document.createElement('img');
-            var emotionPercentage = data["docEmotions"][emotion];
             emotionImage.src = imageUrl;
             //emotionImage.id = "image" + list[0];
             $(emotionImage).css("height", "50px");
             $(emotionImage).css("display", "inline");
-            $("#translation-box").append(emotionImage);
+            //$("#translation-box").append(emotionImage);
             var analysis = emotion + ": " + data["docEmotions"][emotion];
-            $("#translation-box").append("<div class='rect'style='position:absolute;width:100px;z-index: 1000000000000; border:1px solid#000; background-color: blue;color:white;'>" + emotionPercentage +"</div>");
-            $("#translation-box").append("<br>");
+            console.log(barWidth*emotionPercentage);
+            //$("#translation-box").append("<br>");
             //$("#translation-box").append(analysis + "<br>");
 
 
