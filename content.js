@@ -97,7 +97,7 @@ $(document).ready(function(){
         var barColors = ["blue","green","placeholder","darkviolet","red"];
         var lefts = ["50","100","placeholder","150","200"];
         var list = [0,1,2,3];
-        var barWidth = $("#translation-box").width();
+        var barWidth = $("#translation-box").width()*(.5);
         $("#translation-box").append("<h2 style='padding-bottom:" + barWidth +"px'> Emotion Analysis: </h2>");
         for (var i = 0; i < count; i++) {
           var emotion = emotions[i];
@@ -117,7 +117,6 @@ $(document).ready(function(){
             var imageUrl = chrome.extension.getURL('/img/' + emotion + '.png');
             var emotionImage = document.createElement('img');
             emotionImage.src = imageUrl;
-            //emotionImage.id = "image" + list[0];
             $(emotionImage).css("height", "50px");
             $(emotionImage).css("display", "inline");
             $(emotionImage).css("margin", "5px");
