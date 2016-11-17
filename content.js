@@ -10,11 +10,11 @@ $(document).ready(function(){
   $(document).on("mouseover", ".userContent", function() {
     var position = $(this).offset();
     var width = $(this).width();
-    var content = $(this).find("p").first().html();
+    var content = $(this).html();
     var height = $(this).height();
 
     function addHoverBox(){
-      $("body").append("<div id='hover-box' style='background-color: blue; opacity: 0.2; position:absolute; width:auto; height:auto;'></div>");
+      //$("body").append("<div id='hover-box' style='background-color: blue; opacity: 0.2; position:absolute; width:auto; height:auto;'></div>");
 
       $("#hover-box").css("left", position.left + "px");
       $("#hover-box").css("top", position.top + "px");
@@ -74,7 +74,7 @@ $(document).ready(function(){
     function translateText() {
       $.get(translateUrl + content, function (data) {
         var translatedText = data.data.translations[0].translatedText;
-        $("#translation-box").html("<br> <br> <h2> Translation: </h2>" + translatedText + "<br> <br>");
+        $("#translation-box").html("<br> <br> <h2> Translation: </h2>" + translatedText + "<br>");
         runEmotionAnalysis(translatedText);
       });
 
@@ -85,10 +85,14 @@ $(document).ready(function(){
         html: transText,
         apikey: alchemyApiKey,
         outputMode: "json",
-        extract: "doc-emotion"
+        //extract: ["doc-emotion", "doc-sentiment"]
+        extract: "doc-emotion, doc-sentiment"
+
       }, function (data) {
         console.log(data);
-        var count = Object.keys(data).length;
+
+        var count = 5; //num. of emotions
+        console.log('count' + count);
         var emotions = ["anger", "disgust", "fear", "joy", "sadness"];
         var barColors = ["blue","green","placeholder","darkviolet","red"];
         var lefts = ["50","100","placeholder","150","200"];
@@ -102,7 +106,7 @@ $(document).ready(function(){
           if (emotion != "fear") {
             var emotionPercentage = data["docEmotions"][emotion];
             var roundedEmotionPercentage = Math.round(emotionPercentage*100);
-            $("#translation-box").append("<div class='rect'style='position:absolute;bottom:90px;left:" + leftPos +"px; height:" + (barWidth*emotionPercentage) + "px;z-index: 10000000000;padding:5px; border:1px solid#000; background-color:" + barColor + ";color:white;margin:10px;display:inline-block;'>" + roundedEmotionPercentage +" %</div>");
+            $("#translation-box").append("<div class='rect'style='position:absolute;bottom:170px;left:" + leftPos +"px; height:" + (barWidth*emotionPercentage) + "px;z-index: 10000000000;padding:5px; border:1px solid#000; background-color:" + barColor + ";color:white;margin:10px;display:inline-block;'>" + roundedEmotionPercentage +" %</div>");
             //drawBars(emotionPercentage);
           }
         }
@@ -127,10 +131,18 @@ $(document).ready(function(){
           }
         }
 
+        //run sentiment-analysis
+        $("#translation-box").append("<h2>Sentiment Analysis </h2>");
+        var sentimentType = data["docSentiment"]["type"];
+        var sentimentScore = data["docSentiment"]["score"];
+        console.log('type' + sentimentType);
+        console.log(sentimentScore);
+        $("#translation-box").append("<p>Type: " + sentimentType + "<br>");
+        $("#translation-box").append("<p>Score: " + sentimentScore + "<br>");
 
-        //drawRect();
       });
     }
+
 
     function drawBars(emotionPercent){
       var barWidth = $("#translation-box").width();
