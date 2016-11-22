@@ -20,6 +20,7 @@ $(document).ready(function(){
       $("#hover-box").css("top", position.top + "px");
       $("#hover-box").css("width", width + "px");
       $("#hover-box").css("height", height + "px");
+      $("#hover-box").css("margin-top", "-10%");
     }
 
     function createButton(){
@@ -33,7 +34,6 @@ $(document).ready(function(){
       $(".btn-class").css("border", "none");
       $(".btn-class").css("padding", "10px");
       $(".btn-class").css("font-weight", "bold");
-
     }
 
    function detectLanguage(foreignText) {
@@ -64,7 +64,7 @@ $(document).ready(function(){
       });
     }
     function addTranslationBox(){
-      $("body").append("<div id='translation-box' style='background-color: #8B9DC3; position:absolute; width:auto; height:auto;'></div>");
+      $("body").append("<div id='translation-box' style='background-color: #8B9DC3; position:absolute; width:20%; height:auto;'></div>");
       $("#translation-box").css("left", (position.left + width) + "px");
       $("#translation-box").css("top", position.top + "px");
       $("#translation-box").css("z-index", 1000);
@@ -94,26 +94,26 @@ $(document).ready(function(){
         var count = 5; //num. of emotions
         console.log('count' + count);
         var emotions = ["anger", "disgust", "fear", "joy", "sadness"];
-        var barColors = ["blue","green","placeholder","darkviolet","red"];
-        var lefts = ["50","100","placeholder","150","200"];
-        var list = [0,1,2,3];
+        var barColors = ["blue","green","darkorange","darkviolet","red"];
+        var lefts = ["0","50","100","150","200"];
+        var list = [0,1,2,3,4];
         var barWidth = $("#translation-box").width()*(.5);
-        $("#translation-box").append("<h2 style='padding-bottom:" + barWidth +"px'> Emotion Analysis: </h2>");
+        $("#translation-box").append("<h2 style='padding-bottom:" + barWidth +"px;'> Emotion Analysis: </h2>");
         for (var i = 0; i < count; i++) {
           var emotion = emotions[i];
           var barColor = barColors[i];
           var leftPos = lefts[i];
-          if (emotion != "fear") {
+          if (emotion != "else") {
             var emotionPercentage = data["docEmotions"][emotion];
             var roundedEmotionPercentage = Math.round(emotionPercentage*100);
-            $("#translation-box").append("<div class='rect'style='position:absolute;bottom:170px;left:" + leftPos +"px; height:" + (barWidth*emotionPercentage) + "px;z-index: 10000000000;padding:5px; border:1px solid#000; background-color:" + barColor + ";color:white;margin:10px;display:inline-block;'>" + roundedEmotionPercentage +" %</div>");
+            $("#translation-box").append("<div class='rect'style='position:absolute;bottom:170px;left:" + leftPos + "px; height:" + (barWidth*emotionPercentage) + "px;z-index: 10000000000;padding:5px; border:0px solid#000; background-color:" + barColor + ";color:white;margin:10px;display:inline-block;'>" + roundedEmotionPercentage +" %</div>");
             //drawBars(emotionPercentage);
           }
         }
         $("#translation-box").append("<br>");
         for (var i = 0; i < count; i++) {
           var emotion = emotions[i];
-          if (emotion != "fear") {
+          if (emotion != "else") {
             var imageUrl = chrome.extension.getURL('/img/' + emotion + '.png');
             var emotionImage = document.createElement('img');
             emotionImage.src = imageUrl;
@@ -125,8 +125,6 @@ $(document).ready(function(){
             console.log(barWidth*emotionPercentage);
             //$("#translation-box").append("<br>");
             //$("#translation-box").append(analysis + "<br>");
-
-
           }
         }
 
@@ -145,14 +143,9 @@ $(document).ready(function(){
 
     function drawBars(emotionPercent){
       var barWidth = $("#translation-box").width();
-
       $("#translation-box").append("<div class='rect'style='height:" + (barWidth*emotionPercent) + "px;z-index: 10000000000; border:1px solid#000; background-color: blue;color:white;margin:10px;display:inline-block;'>" + emotionPercentage +"</div>");
 
     }
-    function drawRect(percentage){
-      //$("#translation-box").append("<div class='rect' style='position:absolute; width:100px;z-index: 1000000000000; border:1px solid#000; background-color: blue;color:white;'>Hi</div>");
-      //document.getElementById('rect').innerHTML = data["docEmotions"][emotion];
-      console.log('box');
-    }
+
   });
 });
