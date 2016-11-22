@@ -23,7 +23,7 @@ $(document).ready(function(){
     }
 
     function createButton(){
-      $("body").append("<button class='btn-class' style='position:absolute;'>Check</button>");
+      $("body").append("<button class='btn-class' style='position:absolute;border-radius:5px;'>Check</button>");
       $(".btn-class").css("left", (position.left + width) + "px");
       $(".btn-class").css("top", position.top + "px");
       $(".btn-class").css("background-color", "#3B5998");
@@ -32,7 +32,7 @@ $(document).ready(function(){
       $(".btn-class").css("border", "none");
       $(".btn-class").css("padding", "10px");
       $(".btn-class").css("font-weight", "bold");
-      $(".btn-class").css("z-index", "1");
+      $(".btn-class").css("z-index", "10");
 
     }
 
@@ -68,6 +68,8 @@ $(document).ready(function(){
       $("#translation-box").css("left", (position.left + width) + "px");
       $("#translation-box").css("top", position.top + "px");
       $("#translation-box").css("padding", "20px");
+      $("#translation-box").css("z-index", "10");
+
     }
 
     function translateText() {
@@ -113,7 +115,7 @@ $(document).ready(function(){
           else{
             barHeight = 5;
           }
-          $("#translation-box").append("<div class='rect'style='margin-left: 25px;position:absolute;bottom:210px;left:" + leftPos + "px; height:" + barHeight + "px;padding:5px; border:0px solid#000;line-height: "+barHeight+"px; background-color:" + barColor + ";color:white;display:inline-block;vertical-align: middle; '>" + roundedEmotionPercentage +" %</div>");
+          $("#translation-box").append("<div class='rect'style='margin-left: 25px;border-radius: 5px;position:absolute;bottom:210px;left:" + leftPos + "px; height:" + barHeight + "px;padding:5px; border:0px solid#000;line-height: "+barHeight+"px; background-color:" + barColor + ";color:white;display:inline-block;vertical-align: middle; '>" + roundedEmotionPercentage +" %</div>");
 
           /*
           $("#translation-box").append("<div class='rect' id= " + name + "; style='text-align: center; font-weight: bold;color:white;'>" + roundedEmotionPercentage +" %</div>");
