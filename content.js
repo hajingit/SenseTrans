@@ -32,7 +32,7 @@ $(document).ready(function(){
       $(".btn-class").css("border", "none");
       $(".btn-class").css("padding", "10px");
       $(".btn-class").css("font-weight", "bold");
-      $(".btn-class").css("z-index", "10");
+      $(".btn-class").css("z-index", "1001");
 
     }
 
@@ -68,7 +68,7 @@ $(document).ready(function(){
       $("#translation-box").css("left", (position.left + width) + "px");
       $("#translation-box").css("top", position.top + "px");
       $("#translation-box").css("padding", "20px");
-      $("#translation-box").css("z-index", "10");
+      $("#translation-box").css("z-index", "1000");
 
     }
 
