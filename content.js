@@ -106,26 +106,22 @@ $(document).ready(function(){
           if (emotion != "else") {
             var emotionPercentage = data["docEmotions"][emotion];
             var roundedEmotionPercentage = Math.round(emotionPercentage*100);
-            $("#translation-box").append("<div class='rect'style='position:absolute;bottom:170px;left:" + leftPos + "px; height:" + (barWidth*emotionPercentage) + "px;z-index: 10000000000;padding:5px; border:0px solid#000; background-color:" + barColor + ";color:white;margin:10px;display:inline-block;'>" + roundedEmotionPercentage +" %</div>");
-            //drawBars(emotionPercentage);
+            $("#translation-box").append("<div class='rect'style='margin-left: 25px;position:absolute;bottom:170px;left:" + leftPos + "px; height:" + (barWidth*emotionPercentage) + "px;z-index: 10000000000;padding:5px; border:0px solid#000; background-color:" + barColor + ";color:white;display:inline-block;'>" + roundedEmotionPercentage +" %</div>");
           }
         }
         $("#translation-box").append("<br>");
         for (var i = 0; i < count; i++) {
           var emotion = emotions[i];
-          if (emotion != "else") {
-            var imageUrl = chrome.extension.getURL('/img/' + emotion + '.png');
-            var emotionImage = document.createElement('img');
-            emotionImage.src = imageUrl;
-            $(emotionImage).css("height", "50px");
-            $(emotionImage).css("display", "inline");
-            $(emotionImage).css("margin", "5px");
-            $("#translation-box").append(emotionImage);
-            var analysis = emotion + ": " + data["docEmotions"][emotion];
-            console.log(barWidth*emotionPercentage);
-            //$("#translation-box").append("<br>");
-            //$("#translation-box").append(analysis + "<br>");
-          }
+          var imageUrl = chrome.extension.getURL('/img/' + emotion + '.png');
+          var emotionImage = document.createElement('img');
+          emotionImage.src = imageUrl;
+          $(emotionImage).css("height", "50px");
+          $(emotionImage).css("display", "inline");
+          //$(emotionImage).css("margin", "5px");
+          $("#translation-box").append(emotionImage);
+          var analysis = emotion + ": " + data["docEmotions"][emotion];
+
+
         }
 
         //run sentiment-analysis
@@ -140,12 +136,6 @@ $(document).ready(function(){
       });
     }
 
-
-    function drawBars(emotionPercent){
-      var barWidth = $("#translation-box").width();
-      $("#translation-box").append("<div class='rect'style='height:" + (barWidth*emotionPercent) + "px;z-index: 10000000000; border:1px solid#000; background-color: blue;color:white;margin:10px;display:inline-block;'>" + emotionPercentage +"</div>");
-
-    }
 
   });
 });
