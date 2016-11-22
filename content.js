@@ -32,6 +32,8 @@ $(document).ready(function(){
       $(".btn-class").css("border", "none");
       $(".btn-class").css("padding", "10px");
       $(".btn-class").css("font-weight", "bold");
+      $(".btn-class").css("z-index", "1");
+
     }
 
    function detectLanguage(foreignText) {
@@ -103,7 +105,7 @@ $(document).ready(function(){
           if (emotion != "else") {
             var emotionPercentage = data["docEmotions"][emotion];
             var roundedEmotionPercentage = Math.round(emotionPercentage*100);
-            $("#translation-box").append("<div class='rect'style='margin-left: 25px;position:absolute;bottom:170px;left:" + leftPos + "px; height:" + (barWidth*emotionPercentage) + "px;z-index: 10000000000;padding:5px; border:0px solid#000; background-color:" + barColor + ";color:white;display:inline-block;'>" + roundedEmotionPercentage +" %</div>");
+            $("#translation-box").append("<div class='rect'style='margin-left: 25px;position:absolute;bottom:170px;left:" + leftPos + "px; height:" + (barWidth*emotionPercentage) + "px;padding:5px; border:0px solid#000; background-color:" + barColor + ";color:white;display:inline-block;'>" + roundedEmotionPercentage +" %</div>");
           }
         }
         $("#translation-box").append("<br>");
@@ -132,7 +134,6 @@ $(document).ready(function(){
 
       });
     }
-
 
   });
 });
