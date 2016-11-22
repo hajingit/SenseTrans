@@ -4,7 +4,7 @@ document.documentElement.style.width = '100%';
 document.body.style.width = '100%';
 var translateUrl = "https://www.googleapis.com/language/translate/v2?key=AIzaSyD4rLhLb3ZmwjLJDt-njNqFYP30eHeaBTQ&target=en&q=";
 var watsonUrl = "https://access.alchemyapi.com/calls/html/HTMLGetCombinedData";
-var alchemyApiKey = "2559328133acc4a3e8825bc7afe60edcd1d0beeb";
+var alchemyApiKey = "6edb6458004208aaa14bb2d235e0ef200e1a846f";
 
 $(document).ready(function(){
   $(document).on("mouseover", ".userContent", function() {
@@ -64,7 +64,7 @@ $(document).ready(function(){
       });
     }
     function addTranslationBox(){
-      $("body").append("<div id='translation-box' style='background-color: #8B9DC3; position:absolute; width:20%; height:auto;'></div>");
+      $("body").append("<div id='translation-box' style='background-color: #EDF0F5; position:absolute; width:20%; height:auto;'></div>");
       $("#translation-box").css("left", (position.left + width) + "px");
       $("#translation-box").css("top", position.top + "px");
       $("#translation-box").css("padding", "20px");
@@ -91,24 +91,51 @@ $(document).ready(function(){
         console.log(data);
 
         var count = 5; //num. of emotions
-        console.log('count' + count);
         var emotions = ["anger", "disgust", "fear", "joy", "sadness"];
-        var barColors = ["blue","green","darkorange","darkviolet","red"];
+        var barColors = ["#EB5757","#27AE60","#BB6BD9","#F2994A","#2D9CDB"];
         var lefts = ["0","50","100","150","200"];
         var list = [0,1,2,3,4];
         var barWidth = $("#translation-box").width()*(.5);
         $("#translation-box").append("<h2 style='padding-bottom:" + barWidth +"px;'> Emotion Analysis: </h2>");
         for (var i = 0; i < count; i++) {
+          var name = "rect" + i;
           var emotion = emotions[i];
           var barColor = barColors[i];
           var leftPos = lefts[i];
-          if (emotion != "else") {
-            var emotionPercentage = data["docEmotions"][emotion];
-            var roundedEmotionPercentage = Math.round(emotionPercentage*100);
-            $("#translation-box").append("<div class='rect'style='margin-left: 25px;position:absolute;bottom:170px;left:" + leftPos + "px; height:" + (barWidth*emotionPercentage) + "px;padding:5px; border:0px solid#000; background-color:" + barColor + ";color:white;display:inline-block;'>" + roundedEmotionPercentage +" %</div>");
+          var emotionPercentage = data["docEmotions"][emotion];
+          var roundedEmotionPercentage = Math.round(emotionPercentage*100);
+
+          var barHeight;
+          if ((barWidth*emotionPercentage) > 5){
+            barHeight = barWidth*emotionPercentage;
           }
+          else{
+            barHeight = 5;
+          }
+          $("#translation-box").append("<div class='rect'style='margin-left: 25px;position:absolute;bottom:210px;left:" + leftPos + "px; height:" + barHeight + "px;padding:5px; border:0px solid#000;line-height: "+barHeight+"px; background-color:" + barColor + ";color:white;display:inline-block;vertical-align: middle; '>" + roundedEmotionPercentage +" %</div>");
+
+          /*
+          $("#translation-box").append("<div class='rect' id= " + name + "; style='text-align: center; font-weight: bold;color:white;'>" + roundedEmotionPercentage +" %</div>");
+         console.log(name);
+          $(".rect").css("margin-left", "25px");
+          $(".rect").css("position", "absolute");
+          $(".rect").css("bottom", "240px");
+          $(".rect").css("border", "0px solid#000");
+          $(".rect").css("display", "inline-block");
+
+          $("#" + name).css("left", leftPos + "px");
+          $("#" + name).css("background-color", barColor);
+
+          //if height is big enough to hold text (5 px)
+          if ((barWidth*emotionPercentage) > 5){
+            $("#" + name).css("height", (barWidth*emotionPercentage) + "px");
+          }
+          else{
+            $("#" + name).css("height", "5px");
+          }
+
+*/
         }
-        $("#translation-box").append("<br>");
         for (var i = 0; i < count; i++) {
           var emotion = emotions[i];
           var imageUrl = chrome.extension.getURL('/img/' + emotion + '.png');
@@ -118,21 +145,59 @@ $(document).ready(function(){
           $(emotionImage).css("display", "inline");
           //$(emotionImage).css("margin", "5px");
           $("#translation-box").append(emotionImage);
-          var analysis = emotion + ": " + data["docEmotions"][emotion];
-
-
         }
 
         //run sentiment-analysis
         $("#translation-box").append("<h2>Sentiment Analysis </h2>");
         var sentimentType = data["docSentiment"]["type"];
         var sentimentScore = data["docSentiment"]["score"];
-        console.log('type' + sentimentType);
-        console.log(sentimentScore);
         $("#translation-box").append("<p>Type: " + sentimentType + "<br>");
-        $("#translation-box").append("<p>Score: " + sentimentScore + "<br>");
+        $("#translation-box").append("<p>Score: " + sentimentScore + "<br><br>");
 
+        drawSentAnalysisBars(sentimentScore);
       });
+    }
+
+    function drawSentAnalysisBars(score){
+
+      $("#translation-box").append("<div id='sent-bar-wrapper'> <div class='sent-bar' id='neg'>negative</div><div class='sent-bar' id='pos'>positive</div></div>");
+      $("#translation-box").append("<div id='sent-arrow'></div>");
+
+      $(".sent-bar").css("height", "20px");
+      $(".sent-bar").css("width", "100px");
+      $(".sent-bar").css("display", "inline-block");
+      $(".sent-bar").css("text-align", "center");
+      $(".sent-bar").css("font-weight", "bold");
+      $(".sent-bar").css("padding", "2px");
+
+      $("#sent-bar-wrapper").css("text-align", "center");
+
+
+      $("#neg").css("background-color", "#EB5757");
+      $("#neg").css("color", "white");
+      $("#pos").css("background-color", "#6FCF97");
+      $("#pos").css("color", "white");
+
+      var sentBarWidth = $(".sent-bar").width();
+      var arrowLeft = $("#neg").position().left;
+      if (score < 0){
+          arrowLeft += (1 - score*(-1))*sentBarWidth;
+      }
+      else if (score == 0.0){
+        arrowLeft += sentBarWidth;
+      }
+      else {
+        arrowLeft += sentBarWidth + (score*sentBarWidth);
+      }
+      $("#sent-arrow").css("width", "0");
+      $("#sent-arrow").css("height", "0");
+      $("#sent-arrow").css("border-right", "10px solid transparent");
+      $("#sent-arrow").css("border-left", "10px solid transparent");
+      $("#sent-arrow").css("border-top", "20px solid black");
+      $("#sent-arrow").css("position", "absolute");
+      $("#sent-arrow").css("bottom", "45px");
+      $("#sent-arrow").css("left", arrowLeft + "px");
+
     }
 
   });
