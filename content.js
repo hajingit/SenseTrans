@@ -69,6 +69,7 @@ $(document).ready(function(){
       $("#translation-box").css("top", position.top + "px");
       $("#translation-box").css("padding", "20px");
       $("#translation-box").css("z-index", "1000");
+      $("#translation-box").css("border-radius", "5px");
 
     }
 
