@@ -91,74 +91,81 @@ $(document).ready(function(){
 
       }, function (data) {
         console.log(data);
+        if (data["status"] == "OK") {
+          var count = 5; //num. of emotions
+          var emotions = ["anger", "disgust", "fear", "joy", "sadness"];
+          //colors: red, green, purple, orange, blue
+          var barColors = ["#E73737", "#1D884B", "#7B44AF", "#FF871C", "#1D64C4"];
+          var lefts = ["0", "50", "100", "150", "200"];
+          var list = [0, 1, 2, 3, 4];
+          var barWidth = $("#translation-box").width() * (.5);
+          $("#translation-box").append("<h2 style='padding-bottom:" + barWidth + "px;'> Emotion Analysis: </h2>");
+          for (var i = 0; i < count; i++) {
+            var name = "rect" + i;
+            var emotion = emotions[i];
+            var barColor = barColors[i];
+            var leftPos = lefts[i];
+            var emotionPercentage = data["docEmotions"][emotion];
+            var roundedEmotionPercentage = Math.round(emotionPercentage * 100);
 
-        var count = 5; //num. of emotions
-        var emotions = ["anger", "disgust", "fear", "joy", "sadness"];
-        //colors: red, green, purple, orange, blue
-        var barColors = ["#E73737","#1D884B","#7B44AF","#FF871C","#1D64C4"];
-        var lefts = ["0","50","100","150","200"];
-        var list = [0,1,2,3,4];
-        var barWidth = $("#translation-box").width()*(.5);
-        $("#translation-box").append("<h2 style='padding-bottom:" + barWidth +"px;'> Emotion Analysis: </h2>");
-        for (var i = 0; i < count; i++) {
-          var name = "rect" + i;
-          var emotion = emotions[i];
-          var barColor = barColors[i];
-          var leftPos = lefts[i];
-          var emotionPercentage = data["docEmotions"][emotion];
-          var roundedEmotionPercentage = Math.round(emotionPercentage*100);
+            var barHeight;
+            if ((barWidth * emotionPercentage) > 5) {
+              barHeight = barWidth * emotionPercentage;
+            }
+            else {
+              barHeight = 5;
+            }
+            $("#translation-box").append("<div class='rect'style='margin-left: 25px;border-radius: 5px;position:absolute;bottom:210px;left:" + leftPos + "px; height:" + barHeight + "px;padding:5px; border:0px solid#000;line-height: " + barHeight + "px; background-color:" + barColor + ";color:white;display:inline-block;vertical-align: middle; '>" + roundedEmotionPercentage + " %</div>");
 
-          var barHeight;
-          if ((barWidth*emotionPercentage) > 5){
-            barHeight = barWidth*emotionPercentage;
+            /*
+             $("#translation-box").append("<div class='rect' id= " + name + "; style='text-align: center; font-weight: bold;color:white;'>" + roundedEmotionPercentage +" %</div>");
+             console.log(name);
+             $(".rect").css("margin-left", "25px");
+             $(".rect").css("position", "absolute");
+             $(".rect").css("bottom", "240px");
+             $(".rect").css("border", "0px solid#000");
+             $(".rect").css("display", "inline-block");
+
+             $("#" + name).css("left", leftPos + "px");
+             $("#" + name).css("background-color", barColor);
+
+             //if height is big enough to hold text (5 px)
+             if ((barWidth*emotionPercentage) > 5){
+             $("#" + name).css("height", (barWidth*emotionPercentage) + "px");
+             }
+             else{
+             $("#" + name).css("height", "5px");
+             }
+
+             */
           }
-          else{
-            barHeight = 5;
-          }
-          $("#translation-box").append("<div class='rect'style='margin-left: 25px;border-radius: 5px;position:absolute;bottom:210px;left:" + leftPos + "px; height:" + barHeight + "px;padding:5px; border:0px solid#000;line-height: "+barHeight+"px; background-color:" + barColor + ";color:white;display:inline-block;vertical-align: middle; '>" + roundedEmotionPercentage +" %</div>");
-
-          /*
-          $("#translation-box").append("<div class='rect' id= " + name + "; style='text-align: center; font-weight: bold;color:white;'>" + roundedEmotionPercentage +" %</div>");
-         console.log(name);
-          $(".rect").css("margin-left", "25px");
-          $(".rect").css("position", "absolute");
-          $(".rect").css("bottom", "240px");
-          $(".rect").css("border", "0px solid#000");
-          $(".rect").css("display", "inline-block");
-
-          $("#" + name).css("left", leftPos + "px");
-          $("#" + name).css("background-color", barColor);
-
-          //if height is big enough to hold text (5 px)
-          if ((barWidth*emotionPercentage) > 5){
-            $("#" + name).css("height", (barWidth*emotionPercentage) + "px");
-          }
-          else{
-            $("#" + name).css("height", "5px");
+          for (var i = 0; i < count; i++) {
+            var emotion = emotions[i];
+            var imageUrl = chrome.extension.getURL('/img/' + emotion + '.png');
+            var emotionImage = document.createElement('img');
+            emotionImage.src = imageUrl;
+            $(emotionImage).css("height", "50px");
+            $(emotionImage).css("display", "inline");
+            //$(emotionImage).css("margin", "5px");
+            $("#translation-box").append(emotionImage);
           }
 
-*/
+          //run sentiment-analysis
+          $("#translation-box").append("<h2>Sentiment Analysis </h2>");
+          var sentimentType = data["docSentiment"]["type"];
+          var sentimentScore = data["docSentiment"]["score"];
+          $("#translation-box").append("<p>Type: " + sentimentType + "<br>");
+          $("#translation-box").append("<p>Score: " + sentimentScore + "<br><br>");
+
+          drawSentAnalysisBars(sentimentScore);
         }
-        for (var i = 0; i < count; i++) {
-          var emotion = emotions[i];
-          var imageUrl = chrome.extension.getURL('/img/' + emotion + '.png');
-          var emotionImage = document.createElement('img');
-          emotionImage.src = imageUrl;
-          $(emotionImage).css("height", "50px");
-          $(emotionImage).css("display", "inline");
-          //$(emotionImage).css("margin", "5px");
-          $("#translation-box").append(emotionImage);
+        //if error message
+        else {
+          $("#translation-box").append("Analysis cannot be completed.");
+
         }
-
-        //run sentiment-analysis
-        $("#translation-box").append("<h2>Sentiment Analysis </h2>");
-        var sentimentType = data["docSentiment"]["type"];
-        var sentimentScore = data["docSentiment"]["score"];
-        $("#translation-box").append("<p>Type: " + sentimentType + "<br>");
-        $("#translation-box").append("<p>Score: " + sentimentScore + "<br><br>");
-
-        drawSentAnalysisBars(sentimentScore);
       });
+
     }
 
     function drawSentAnalysisBars(score){
