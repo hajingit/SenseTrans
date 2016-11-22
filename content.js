@@ -14,13 +14,12 @@ $(document).ready(function(){
     var height = $(this).height();
 
     function addHoverBox(){
-      //$("body").append("<div id='hover-box' style='background-color: blue; opacity: 0.2; position:absolute; width:auto; height:auto;'></div>");
+      $("body").append("<div id='hover-box' style='background-color: blue; opacity: 0.2; position:absolute; width:auto; height:auto;'></div>");
 
       $("#hover-box").css("left", position.left + "px");
       $("#hover-box").css("top", position.top + "px");
       $("#hover-box").css("width", width + "px");
       $("#hover-box").css("height", height + "px");
-      $("#hover-box").css("margin-top", "-10%");
     }
 
     function createButton(){
