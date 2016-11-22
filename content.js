@@ -193,8 +193,9 @@ $(document).ready(function(){
       if (score < 0){
           arrowLeft += (1 - score*(-1))*sentBarWidth;
       }
-      else if (score == 0.0){
-        arrowLeft += sentBarWidth;
+      else if (score == null){
+        //minus 6 to account for padding and spacing
+        arrowLeft += sentBarWidth - 6;
       }
       else {
         arrowLeft += sentBarWidth + (score*sentBarWidth);
