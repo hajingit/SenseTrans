@@ -53,6 +53,7 @@ $(document).ready(function(){
       });
     }
 
+
     detectLanguage(content);
 
     function clickButton(){
@@ -60,7 +61,6 @@ $(document).ready(function(){
         console.log('clicked');
         addTranslationBox();
         translateText();
-        //drawRect();
       });
     }
     function addTranslationBox(){
@@ -70,7 +70,6 @@ $(document).ready(function(){
       $("#translation-box").css("padding", "20px");
       $("#translation-box").css("z-index", "1000");
       $("#translation-box").css("border-radius", "5px");
-
     }
 
     function translateText() {
@@ -81,7 +80,17 @@ $(document).ready(function(){
       });
 
     }
+    //remove translation box when click outside of it
+    $(document).mouseup(function (e) {
+      var container = $("#translation-box");
 
+      if (!container.is(e.target) // if the target of the click isn't the container...
+          && container.has(e.target).length === 0) // ... nor a descendant of the container
+      {
+        container.remove();
+      }
+    });
+    
     function runEmotionAnalysis(transText) {
       $.post(watsonUrl, {
         html: transText,
