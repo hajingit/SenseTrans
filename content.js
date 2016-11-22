@@ -26,7 +26,6 @@ $(document).ready(function(){
       $("body").append("<button class='btn-class' style='position:absolute;'>Check</button>");
       $(".btn-class").css("left", (position.left + width) + "px");
       $(".btn-class").css("top", position.top + "px");
-      $(".btn-class").css("z-index", 100000);
       $(".btn-class").css("background-color", "#3B5998");
       $(".btn-class").css("color", "white");
       $(".btn-class").css("position", "absolute");
@@ -66,7 +65,6 @@ $(document).ready(function(){
       $("body").append("<div id='translation-box' style='background-color: #8B9DC3; position:absolute; width:20%; height:auto;'></div>");
       $("#translation-box").css("left", (position.left + width) + "px");
       $("#translation-box").css("top", position.top + "px");
-      $("#translation-box").css("z-index", 1000);
       $("#translation-box").css("padding", "20px");
     }
 
