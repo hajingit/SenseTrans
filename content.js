@@ -92,7 +92,8 @@ $(document).ready(function(){
 
         var count = 5; //num. of emotions
         var emotions = ["anger", "disgust", "fear", "joy", "sadness"];
-        var barColors = ["#EB5757","#27AE60","#BB6BD9","#F2994A","#2D9CDB"];
+        //colors: red, green, purple, orange, blue
+        var barColors = ["#E73737","#1D884B","#7B44AF","#FF871C","#1D64C4"];
         var lefts = ["0","50","100","150","200"];
         var list = [0,1,2,3,4];
         var barWidth = $("#translation-box").width()*(.5);
