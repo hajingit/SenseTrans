@@ -4,7 +4,7 @@ document.documentElement.style.width = '100%';
 document.body.style.width = '100%';
 var translateUrl = "https://www.googleapis.com/language/translate/v2?key=AIzaSyD4rLhLb3ZmwjLJDt-njNqFYP30eHeaBTQ&target=en&q=";
 var watsonUrl = "https://access.alchemyapi.com/calls/html/HTMLGetCombinedData";
-var alchemyApiKey = "2559328133acc4a3e8825bc7afe60edcd1d0beeb";
+var alchemyApiKey = "ebdc494fb03a3ef1a8e1c43716e8fe2aea9b7d95";
 
 $(document).ready(function(){
   $(document).on("mouseover", ".userContent", function() {
