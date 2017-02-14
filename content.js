@@ -4,7 +4,7 @@ document.documentElement.style.width = '100%';
 document.body.style.width = '100%';
 var translateUrl = "https://www.googleapis.com/language/translate/v2?key=AIzaSyD4rLhLb3ZmwjLJDt-njNqFYP30eHeaBTQ&target=en&q=";
 var watsonUrl = "https://access.alchemyapi.com/calls/html/HTMLGetCombinedData";
-var alchemyApiKey = "ebdc494fb03a3ef1a8e1c43716e8fe2aea9b7d95";
+var alchemyApiKey = "e6f3d1baaf1156ab096a87fc41ae8d306ece2665";
 
 $(document).ready(function(){
   $(document).on("mouseover", ".userContent", function() {
@@ -17,18 +17,18 @@ $(document).ready(function(){
     console.log("CONT" + content);
 
     function addHoverBox(){
-      $("body").append("<div id='hover-box' style='background-color: blue; opacity: 0.2; position:absolute; width:auto; height:auto;'></div>");
+      $("body").append("<div id='hover-box' style='margin: -5px; border-radius:5px;border-right:8px solid #3B5998; position:absolute; width:auto; height:auto;'></div>");
 
       $("#hover-box").css("left", position.left + "px");
       $("#hover-box").css("top", position.top + "px");
       $("#hover-box").css("width", width + "px");
-      $("#hover-box").css("height", height + "px");
+      $("#hover-box").css("height", (height-30) + "px");
     }
 
     function createButton(){
       $("body").append("<button class='btn-class' style='position:absolute;border-radius:5px;'>Check</button>");
       $(".btn-class").css("left", (position.left + width) + "px");
-      $(".btn-class").css("top", position.top + "px");
+      $(".btn-class").css("top", (position.top - 5) + "px");
       $(".btn-class").css("background-color", "#3B5998");
       $(".btn-class").css("color", "white");
       $(".btn-class").css("position", "absolute");
@@ -93,7 +93,7 @@ $(document).ready(function(){
         container.remove();
       }
     });
-    
+
     function runEmotionAnalysis(transText) {
       $.post(watsonUrl, {
         html: transText,
