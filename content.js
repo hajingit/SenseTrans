@@ -175,7 +175,7 @@ $(document).ready(function(){
         }
         //if error message
         else {
-          $("#translation-box").append("Analysis cannot be completed.");
+          $("#translation-box").append("Analysis cannot be completed. Please check your internet connection or reload the page.");
 
         }
       });
