@@ -4,16 +4,17 @@ document.documentElement.style.width = '100%';
 document.body.style.width = '100%';
 var translateUrl = "https://www.googleapis.com/language/translate/v2?key=AIzaSyD4rLhLb3ZmwjLJDt-njNqFYP30eHeaBTQ&target=en&q=";
 var watsonUrl = "https://access.alchemyapi.com/calls/html/HTMLGetCombinedData";
-var alchemyApiKey = "ebdc494fb03a3ef1a8e1c43716e8fe2aea9b7d95";
+var alchemyApiKey = "e6f3d1baaf1156ab096a87fc41ae8d306ece2665";
 
 $(document).ready(function(){
   $(document).on("mouseover", ".userContent", function() {
     var position = $(this).offset();
     var width = $(this).width();
+    //var str = $(this).html();
     var str = $(this).text();
-    var content = str.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
+    var content = str.replace(/[&\\#,+$~%*{}]/g, '');
     var height = $(this).height();
-    console.log("STR " + str);
+    //console.log("STR " + str);
     console.log("CONT" + content);
 
     function addHoverBox(){
