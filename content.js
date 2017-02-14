@@ -4,14 +4,17 @@ document.documentElement.style.width = '100%';
 document.body.style.width = '100%';
 var translateUrl = "https://www.googleapis.com/language/translate/v2?key=AIzaSyD4rLhLb3ZmwjLJDt-njNqFYP30eHeaBTQ&target=en&q=";
 var watsonUrl = "https://access.alchemyapi.com/calls/html/HTMLGetCombinedData";
-var alchemyApiKey = "6edb6458004208aaa14bb2d235e0ef200e1a846f";
+var alchemyApiKey = "ebdc494fb03a3ef1a8e1c43716e8fe2aea9b7d95";
 
 $(document).ready(function(){
   $(document).on("mouseover", ".userContent", function() {
     var position = $(this).offset();
     var width = $(this).width();
-    var content = $(this).html();
+    var str = $(this).text();
+    var content = str.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
     var height = $(this).height();
+    console.log("STR " + str);
+    console.log("CONT" + content);
 
     function addHoverBox(){
       $("body").append("<div id='hover-box' style='background-color: blue; opacity: 0.2; position:absolute; width:auto; height:auto;'></div>");
@@ -38,17 +41,17 @@ $(document).ready(function(){
 
    function detectLanguage(foreignText) {
       $.post(watsonUrl, {html: foreignText, apikey: alchemyApiKey, outputMode: "json"}, function (data) {
-        console.log(data);
+        //console.log(data);
         var language = data["language"];
         if (language != "english" && language!=null) {
-          console.log("not english");
+          //console.log("not english");
           addHoverBox();
           createButton();
           clickButton();
 
         }
         else{
-          console.log("english");
+          //console.log("english");
         }
       });
     }
@@ -58,7 +61,7 @@ $(document).ready(function(){
 
     function clickButton(){
       $(".btn-class").click(function(){
-        console.log('clicked');
+        //console.log('clicked');
         addTranslationBox();
         translateText();
       });
