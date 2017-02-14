@@ -10,10 +10,11 @@ $(document).ready(function(){
   $(document).on("mouseover", ".userContent", function() {
     var position = $(this).offset();
     var width = $(this).width();
+    //var str = $(this).html();
     var str = $(this).text();
-    var content = str.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
+    var content = str.replace(/[&\\#,+$~%*{}]/g, '');
     var height = $(this).height();
-    console.log("STR " + str);
+    //console.log("STR " + str);
     console.log("CONT" + content);
 
     function addHoverBox(){
@@ -174,7 +175,7 @@ $(document).ready(function(){
         }
         //if error message
         else {
-          $("#translation-box").append("Analysis cannot be completed.");
+          $("#translation-box").append("Analysis cannot be completed. Please check your internet connection or reload the page.");
 
         }
       });
