@@ -6,6 +6,11 @@ var translateUrl = "https://www.googleapis.com/language/translate/v2?key=AIzaSyD
 var watsonUrl = "https://access.alchemyapi.com/calls/html/HTMLGetCombinedData";
 var alchemyApiKey = "ebdc494fb03a3ef1a8e1c43716e8fe2aea9b7d95";
 
+// ==========================
+// Replace 'unnamed' with 'your_name'
+var myName = 'unnamed';
+// =======================
+
 $(document).ready(function(){
   $(document).on("mouseover", ".userContent", function() {
     var position = $(this).offset();
@@ -172,6 +177,24 @@ $(document).ready(function(){
           $("#translation-box").append("<p>Score: " + sentimentScore + "<br><br>");
 
           drawSentAnalysisBars(sentimentScore);
+
+          // Log request information to the nodejs server.
+          var logBlob = {
+              time: Date.now(),
+              docEmotions: data.docEmotions,
+              docSentiment: data.docSentiment,
+              docTranslation: transText,
+              originalLanguage: 'TODO'
+          };
+
+          var payLoad = {
+              name: myName,
+              logBlob: logBlob
+          };
+
+          chrome.runtime.sendMessage(payLoad, function(response) {
+              console.log(response);
+          });
         }
         //if error message
         else {
@@ -227,3 +250,4 @@ $(document).ready(function(){
   });
 
 });
+
