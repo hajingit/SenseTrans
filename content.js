@@ -187,14 +187,14 @@ $(document).ready(function(){
               originalLanguage: 'TODO'
           };
 
-          var payLoad = {
-              name: myName,
-              logBlob: logBlob
-          };
+            var payLoad = {
+                name: myName,
+                logBlob: logBlob
+            };
 
-          chrome.runtime.sendMessage(payLoad, function(response) {
-              console.log(response);
-          });
+            chrome.runtime.sendMessage(payLoad, function(response) {
+                console.log(response);
+            });
         }
         //if error message
         else {
