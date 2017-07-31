@@ -477,11 +477,11 @@ require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof requ
                                   if (key.match("[0-9]+") && key.length > 0) {
                                     var pageId = key;
                                     if (!data["query"]["redirects"] && data["query"]["pages"][pageId]["extract"]) {
-                                      wikiText += data["query"]["pages"][pageId]["extract"];
-                                      if (wikiText.indexOf("\n") >= 0) {
-                                        wikiText = wikiText.substring(0, wikiText.indexOf("\n"));
+                                      var extract = data["query"]["pages"][pageId]["extract"];
+                                      if (extract.indexOf("\n") >= 0 && extract.substring(0, extract.indexOf("\n")).length > 40) {
+                                        extract = extract.substring(0, extract.indexOf("\n"));
                                       }
-                                      wikiText += "</span></div>";
+                                      wikiText += extract + "</span></div>";
                                       // if no english Wikipedia page, extract from given wikiLink and translate
                                     } else {
                                       $.getJSON("https://" + pageLang + ".wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&exsentences=1&titles=" + title, function(data) {
@@ -489,13 +489,13 @@ require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof requ
                                           if (key.match("[0-9]+") && key.length > 0) {
                                             var pageId = key;
                                             if (data["query"]["pages"][pageId]["extract"]) {
-                                              data = data["query"]["pages"][pageId]["extract"];
-                                              if (data.indexOf("\n") >= 0) {
-                                                data = data.substring(0, data.indexOf("\n"));
+                                              var extract = data["query"]["pages"][pageId]["extract"];
+                                              if (extract.indexOf("\n") >= 0 && extract.substring(0, extract.indexOf("\n")).length > 40) {
+                                                extract = extract.substring(0, extract.indexOf("\n"));
                                               }
-                                              $.get(translateUrl + data, function(data) {
-                                                data = data.data.translations[0].translatedText;
-                                                wikiText += "<p>" + data + "</p>";
+                                              $.get(translateUrl + extract, function(data) {
+                                                extract = data.data.translations[0].translatedText;
+                                                wikiText += extract + "</span></div>";
                                                 wikiText += "<p style='color:#888888;'>Translated from " + pageLang + ".wikipedia.org</p></span></div>"
                                               });
                                             }
