@@ -291,15 +291,16 @@ require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof requ
               var entitiesArray = []; // separate for user content and link content
               if (res.response.hasOwnProperty("entities")) {
                 // build array of entities
-                for (var i = 0; i < res.response["entities"].length; i++) {
+                for (var i = 0; i < res.response.entities.length; i++) {
                   var type = res.response.entities[i].type;
                   // don't include entities of the following types
-                  if ((type != undefined) && res.response.entities[i].confidenceScore >= 1 && 
+                  if ((type != undefined) && res.response.entities[i].confidenceScore > .5 && 
                     !(type[0] == "Number" || type[0] == "Money" || type[0] == "Email" ||
                       type[0] == "URL" || type[0] == "Duration" || type[0] == "Date" ||
                       type[0] == "Time" || type[0] == "Ordinal" || type[0] == "Percentage" ||
-                      type[0] == "Temperature" || type[0] == "Distance")) {
-                    entitiesArray.push(res.response.entities[i])
+                      type[0] == "Temperature" || type[0] == "Distance") ||
+                    res.response.entities[i].wikiLink.length > 0) {
+                    entitiesArray.push(res.response.entities[i]);
                   }
                 }
                 // reset arrays of matches for each new post
