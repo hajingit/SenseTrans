@@ -2,10 +2,10 @@ require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof requ
 
 /*========================================= ENTER API KEYS HERE =========================================*/
 
-    var googleKey = '';
-    var textRazorKey = '';
-    var watsonUsername = '';
-    var watsonPassword = '';
+    var googleKey = 'AIzaSyCJ8LpgzLrkS1nelEn17AfQj14sb-5Xwlo';
+    var textRazorKey = '5f23ec2822473b2a2d907728ff24d547ce1ea7be4ff56df732b613e6';
+    var watsonUsername = 'a314bf94-dd1d-461b-a851-c76eeea32057';
+    var watsonPassword = 'gZFirr37Ln4j';
 
 /*=======================================================================================================*/
 
@@ -14,12 +14,8 @@ document.body.style.height = '100%';
 document.documentElement.style.width = '100%';
 document.body.style.width = '100%';
 
-var translateUrl = "https://www.googleapis.com/language/translate/v2?key=AIzaSyD4rLhLb3ZmwjLJDt-njNqFYP30eHeaBTQ&target=en&q=";
+var translateUrl = "https://www.googleapis.com/language/translate/v2?key=" + googleKey + "&target=en&q=";
 var detectUrl = "https://translation.googleapis.com/language/translate/v2/detect";
-var oldgoogleKey = "AIzaSyD4rLhLb3ZmwjLJDt-njNqFYP30eHeaBTQ";
-var googleKey = "AIzaSyCJ8LpgzLrkS1nelEn17AfQj14sb-5Xwlo"
-var watsonUrl = "https://access.alchemyapi.com/calls/html/HTMLGetCombinedData";
-var alchemyApiKey = "e6f3d1baaf1156ab096a87fc41ae8d306ece2665";
 
 var textrazorSupported = ["nl", "fr", "de", "it", "pl", "pt", "ru", "es", "sv"];
 var textrazorCodes = ["dut", "fre", "ger", "ita", "pol", "por", "rus", "spa", "swe"];
@@ -61,49 +57,6 @@ function addWikiText(extract, trans) {
 
 $(document).ready(function() {
   $(document).on("mouseover", "._1w_m", function() {
-    var position = $(this).offset();
-    var width = $(this).width();
-    var height = $(this).height();
-    var linkText = $(this).find(".3x-2").text();
-
-    var autoTranslated = $(this).find(".userContent").find("._5wpt").find("p").text();
-    // if Facebook autotranslates post, retrieve hidden original content
-    if (autoTranslated.length > 0) {
-      var main = $(this).find(".hidden_elem").find("p").text();
-    } else {
-      var main = $(this).find(".userContent").find("p").text();
-    };
-
-    if ($(this).find("._5s6c").text()) {
-      linkText = $(this).find("._5s6c").text() + "<br><br>" + $(this).find("._3bt9").text();
-    }
-    if (linkText) {
-      if ($(this).find("._2zpv").text()) {
-        if (main) {
-          main += '<hr>' + $(this).find("._2zpv").text();
-        } else {
-          main = $(this).find("._2zpv").text();
-        }
-      }
-      if ($(this).find("._53j5").text()) {
-        linkText = "";
-      }
-      if ($(this).find("._1w_m").text()) {
-        linkText = "";
-      }
-      if ($(this).find("._2a2q").text()) {
-        linkText = "";
-      }
-      if ($(this).find("._2ph_").text()) {
-        linkText = "";
-      }
-    }
-    if ($(this).find("._2zpv").text()) {
-      linkText = $(this).find("._2zpv").text();
-    }
-
-    main = main.replace(/See Translation/i, "");
-    linkText = linkText.replace(/See Translation/i, "");
 
     function addHoverBox() {
       $("body").append("<div id='hover-box' style='margin: -5px; border-radius:5px;border-right:8px solid #3B5998; position:absolute; width:auto; height:auto;'></div>");
@@ -1099,9 +1052,45 @@ $(document).ready(function() {
     jQuery.ajaxSetup({
       async: false
     });
+
+    var position = $(this).offset();
+    var width = $(this).width();
+    var height = $(this).height();
+    var linkText = $(this).find(".3x-2").text();
+
+    var autoTranslated = $(this).find(".userContent").find("._5wpt").find("p").text();
+
+    // if Facebook autotranslates post, retrieve hidden original content
+    if (autoTranslated.length > 0) {
+      var main = $(this).find(".hidden_elem").find("p").text();
+    } else {
+      var main = $(this).find(".userContent").find("p").text();
+    };
+
+    if ($(this).find("._5s6c").text()) {
+      linkText = $(this).find("._5s6c").text() + "<br><br>" + $(this).find("._3bt9").text();
+    }
+    if (linkText) {
+      if ($(this).find("._2zpv").text()) {
+        if (main) {
+          main += '<hr>' + $(this).find("._2zpv").text();
+        } else {
+          main = $(this).find("._2zpv").text();
+        }
+      }
+      if ($(this).find("._53j5").text() || $(this).find("._1w_m").text() || $(this).find("._2a2q").text() || $(this).find("._2ph_").text()) {
+        linkText = "";
+      }
+    }
+    if ($(this).find("._2zpv").text()) {
+      linkText = $(this).find("._2zpv").text();
+    }
+
+    main = main.replace(/See Translation/i, "");
     main = main.replace(/[&\\#+$~%*{}]/g, ' ');
     main = main.replace(/([\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2694-\u2697]|\uD83E[\uDD10-\uDD5D])/g, '');
     main = main.replace(/([\u2764]|[\u2665])/g, '');
+    linkText = linkText.replace(/See Translation/i, "");
     linkText = linkText.replace(/([\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2694-\u2697]|\uD83E[\uDD10-\uDD5D])/g, '');
     linkText = linkText.replace(/([\u2764]|[\u2665])/g, '');
 
