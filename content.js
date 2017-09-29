@@ -2,10 +2,10 @@ require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof requ
 
 /*========================================= ENTER API KEYS HERE =========================================*/
 
-    var googleKey = 'AIzaSyCJ8LpgzLrkS1nelEn17AfQj14sb-5Xwlo';
-    var textRazorKey = '5f23ec2822473b2a2d907728ff24d547ce1ea7be4ff56df732b613e6';
-    var watsonUsername = 'a314bf94-dd1d-461b-a851-c76eeea32057';
-    var watsonPassword = 'gZFirr37Ln4j';
+    var googleKey = '';
+    var textRazorKey = '';
+    var watsonUsername = '';
+    var watsonPassword = '';
 
 /*=======================================================================================================*/
 
