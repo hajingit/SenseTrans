@@ -1,5 +1,5 @@
 
-**Context Translator Chrome Extension**
+**senseTrans Chrome Extension**
 -
 ___
 >A Chrome Extension developed for Hajin Lim's **"Beyond Translation: Design and Evaluation of Emotion and Contextual Knowledge Support Interfaces for Foreign Language Social Media Posts"** project at Cornell University.
@@ -53,7 +53,7 @@ https://www.textrazor.com/signup
 
 ### **Installation**
 ___
-1. Download the **Context Translator** into the directory of your choice.
+1. Download the **senseTrans Translator** into the directory of your choice.
 2. Open a Chrome window and click the button in the upper right hand corner to navigate to **More Tools** > **Extensions**.
 3. On the Extensions page, check the "**Developer Mode**" box.
 4. Click the "**Load unpacked extension...**" button.
