@@ -1,8 +1,8 @@
 
-**senseTrans Chrome Extension**
+**SenseTrans Chrome Extension for Facebook**
 -
 ___
->A Chrome Extension developed for Hajin Lim's **"Beyond Translation: Design and Evaluation of Emotion and Contextual Knowledge Support Interfaces for Foreign Language Social Media Posts"** project at Cornell University.
+>A Chrome Extension developed for Hajin Lim's **"Beyond Translation: Design and Evaluation of Emotion and Contextual Knowledge Support Interfaces for Foreign Language Social Media Posts"** research project at Cornell University.
 
 ### **Introduction**
 ___
