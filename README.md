@@ -53,11 +53,11 @@ https://www.textrazor.com/signup
 
 ### **Installation**
 ___
-1. Download the **senseTrans Translator** into the directory of your choice.
+1. Download the **SenseTrans Translator** into the directory of your choice.
 2. Open a Chrome window and click the button in the upper right hand corner to navigate to **More Tools** > **Extensions**.
 3. On the Extensions page, check the "**Developer Mode**" box.
 4. Click the "**Load unpacked extension...**" button.
-5. Select the folder containing the **Context Translator** Chrome Extension.
+5. Select the folder containing the **SenseTrans Translator** Chrome Extension.
 6. Navigate to Facebook and begin using the Context Translator!
 
 ### **How to Use**
