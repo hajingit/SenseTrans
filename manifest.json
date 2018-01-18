@@ -1,8 +1,8 @@
 {
-    "name":"Context Translator",
+    "name":"SenseTrans Translator",
     "version":"0.1",
     "manifest_version":2,
-    "description":"For Public Use",
+    "description":"For Public Distribution",
     "background":{
         "scripts":[
                 "jquery-3.1.1.min.js"
